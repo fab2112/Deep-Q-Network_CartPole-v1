@@ -1,4 +1,4 @@
-# DQN-Cartepole
+# DQN-Cartpole
 import gym
 import numpy as np
 from collections import deque
@@ -15,7 +15,7 @@ import datetime
 logging.disable(logging.WARNING)
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
-SEED = 511
+SEED = 123
 
 ENV = gym.make('CartPole-v1')
 
@@ -146,7 +146,8 @@ def train_model():
             dqn.memory.append((state, action, reward, next_state, done))  # Populando dados no buffer de memória
             state = next_state
 
-            if done or total_rewards > 199:
+            #if done or total_rewards > 199:
+            if done:
                 rewards.append(total_rewards)
                 print("episode: {}/{}, scores: {}, epsilon: {}, loss: {}".format(
                     episode, EPISODES, total_rewards, dqn.epsilon, loss))
@@ -156,15 +157,14 @@ def train_model():
             if len(dqn.memory) > BATCH_SIZE:
                 loss = dqn.experience_replay()
 
-
         # Tensorboard data
         with summary_writer.as_default():
             tf.summary.scalar('rewards', total_rewards, step=episode)
             tf.summary.scalar('loss', loss, step=episode)
 
 
-        # Resolução => 100 ultimos passos com média das recompensas maior que 195
-        if len(rewards) > 100 and np.average(rewards[-100:]) > 195:
+        # Resolução do problema => 100 últimos passos com recompensas acima de 195
+        if len(rewards) > 100 and all([i > 195 for i in rewards[-100:]]):
             print("Resolução Alcançada!")
             break
 
@@ -173,7 +173,7 @@ def train_model():
 
 
 # Inicia treinamento
-train_model()
+#train_model()
 
 # Avaliação do Modelo Treinado
 dqn = DQN()

@@ -17,7 +17,7 @@ considerado resolvido.
  
 [CartPole-v1](https://gym.openai.com/envs/CartPole-v1/) 
 
-### Arquitetura DQN
+### Modelo DQN
 
 Deep-Q-Network com repetição de experiência.
 
@@ -34,7 +34,7 @@ Deep-Q-Network com repetição de experiência.
 * EPSILON_DECAY = 0.9995  
 * MEMORY_SIZE = 500000 
 
-### Rede Neural:
+### Arquitetura da Rede Neural:
 
 1. Dense layer - input: 16, output: 24, activation: **relu**
 2. Dropout layer(5%)
@@ -44,3 +44,17 @@ Deep-Q-Network com repetição de experiência.
 
 * Função de custo => **MSE** 
 * Otmizador => **Adam**
+
+
+### Performance da resolução:
+
+* Recompensas alcançadas para a solução do CartPole
+<h3 align="left">
+  <img src="rewards.png" width="1000">
+</h3>
+<br/>
+
+* Otmização de perda da rede neural
+<h3 align="left">
+  <img src="network_loss.png" width="1000">
+</h3>
